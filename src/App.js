@@ -5,8 +5,27 @@ import logo from './mlh-prep.png'
 function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [city, setCity] = useState("New York City")
+  const [city, setCity] = useState("");
   const [results, setResults] = useState(null);
+
+  useEffect(() => {
+    const url = "https://extreme-ip-lookup.com/json/";
+
+    const fetchData = async () => {
+        try {
+          const response = await fetch(url);
+          const json = await response.json();
+          console.log(json.city);
+          setIsLoaded(true);
+          setCity(json.city);
+        } catch (error) {
+          setIsLoaded(true);
+          setError(error);
+        }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&appid=" + process.env.REACT_APP_APIKEY)
