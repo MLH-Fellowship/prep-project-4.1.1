@@ -1,6 +1,7 @@
 import { useState } from "react";
+import "../styles/bootstrap.min.css";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
-import "react-bootstrap-typeahead/css/Typeahead.css";
+import "react-bootstrap-typeahead/css/Typeahead.min.css";
 
 const LIMIT = 30;
 const SEARCH_URI = "https://api.api-ninjas.com/v1/city";
@@ -48,15 +49,6 @@ export default function PlacesTypeahead(props) {
       options={options}
       placeholder="Search for a city..."
       isLoading={isLoading}
-      renderMenuItemChildren={city => (
-        <div key={`${city.name}, ${city.country}`} style={
-          {
-            backgroundColor: "white"
-          }
-        }>
-          <span>{`${city.name}, ${city.country}`}</span>
-        </div>
-      )}
     />
   );
 }
