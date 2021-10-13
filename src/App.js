@@ -70,7 +70,7 @@ function App() {
             <i><p>{results.name}, {results.sys.country}</p></i>
           </>}
         </div>
-        {popUp && <PopUp setPopUp={setPopUp}/>}
+        {popUp && <PopUp setPopUp={setPopUp} />}
       </div>
     </>
   }
