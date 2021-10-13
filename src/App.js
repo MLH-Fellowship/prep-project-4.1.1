@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import './App.css';
-import logo from './mlh-prep.png'
+import logo from './mlh-prep.png';
+import Popup from "./components/Popup";
 
 function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [city, setCity] = useState("");
   const [results, setResults] = useState(null);
+  const [popUp, setPopUp] = useState(false);
 
   useEffect(() => {
     const url = "https://extreme-ip-lookup.com/json/";
@@ -21,6 +23,7 @@ function App() {
         } catch (error) {
           setIsLoaded(true);
           setError(error);
+          setPopUp(true);
         }
     };
 
@@ -66,6 +69,7 @@ function App() {
             <i><p>{results.name}, {results.sys.country}</p></i>
           </>}
         </div>
+        <Popup />
       </div>
     </>
   }

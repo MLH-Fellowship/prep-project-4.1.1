@@ -1,0 +1,25 @@
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 50vh;
+    background: #0e42a318;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.pu-content-container {
+    position: relative;
+    padding: 32px;
+    width: 100%;
+    max-width: 640px;
+    background-color: white;
+}
+
+.popup-x {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
