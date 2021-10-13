@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import './App.css';
 import logo from './mlh-prep.png';
-import Popup from "./components/Popup";
+import PopUp from "./components/Popup";
 
 function App() {
   const [error, setError] = useState(null);
@@ -9,6 +9,7 @@ function App() {
   const [city, setCity] = useState("");
   const [results, setResults] = useState(null);
   const [popUp, setPopUp] = useState(false);
+  
 
   useEffect(() => {
     const url = "https://extreme-ip-lookup.com/json/";
@@ -69,7 +70,7 @@ function App() {
             <i><p>{results.name}, {results.sys.country}</p></i>
           </>}
         </div>
-        <Popup />
+        {popUp && <PopUp setPopUp={setPopUp}/>}
       </div>
     </>
   }
