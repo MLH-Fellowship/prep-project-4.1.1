@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PlacesTypeahead from "./components/PlacesTypeahead";
 import './App.css';
 import logo from './mlh-prep.png'
 
@@ -34,10 +35,11 @@ function App() {
       <img className="logo" src={logo} alt="MLH Prep Logo"></img>
       <div>
         <h2>Enter a city below 👇</h2>
-        <input
-          type="text"
-          value={city}
-          onChange={event => setCity(event.target.value)} />
+        <div id="city-typeahead-container">
+          <PlacesTypeahead
+            apiKey={process.env.REACT_APP_API_NINJAS_API_KEY}
+            onChange={selected => selected && selected.length > 0 && setCity(`${selected[0].name}, ${selected[0].country}`)} />
+        </div>
         <div className="Results">
           {!isLoaded && <h2>Loading...</h2>}
           {console.log(results)}
