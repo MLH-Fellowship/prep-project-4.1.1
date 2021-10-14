@@ -41,14 +41,26 @@ export default function PlacesTypeahead(props) {
     <AsyncTypeahead
       id="places-typeahead"
       labelKey={option => `${option.name}, ${option.country}`}
-      minLength={2}
-      delay={500}
+      minLength={1}
+      delay={200}
+      useCache
       onSearch={handleSearch}
       onChange={handleChange}
       selected={selected}
       options={options}
-      placeholder="Search for a city..."
+      placeholder="Enter City Name..."
       isLoading={isLoading}
+      renderMenuItemChildren={(option, props) => (
+        <>
+          <div 
+            style={{
+              padding: '8px',
+            }}
+          >
+              {`${option.name}, ${option.country}`}
+            </div>
+        </>
+      )}
     />
   );
 }

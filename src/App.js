@@ -34,7 +34,7 @@ function App() {
     return <>
       <img className="logo" src={logo} alt="MLH Prep Logo"></img>
       <div>
-        <h2>Enter a city below 👇</h2>
+        {/* <h2>Enter a city below 👇</h2> */}
         <div id="city-typeahead-container">
           <PlacesTypeahead
             apiKey={process.env.REACT_APP_API_NINJAS_API_KEY}

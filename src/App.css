@@ -31,6 +31,25 @@ input {
 }
 
 #city-typeahead-container {
-  width: 200px;
+  width: 95vw;
   margin: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#city-typeahead-container .form-control {
+  font-size: 1.28rem;
+  text-align: center;
+  border-radius: 0;
+}
+
+#city-typeahead-container .form-control:focus {
+  border-color: white;
+  box-shadow: 0 0 5px 3px #42eff5;
+}
+
+#city-typeahead-container .rbt-menu.dropdown-menu {
+  border-radius: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
