@@ -3,12 +3,13 @@ import './App.css';
 import logo from './mlh-prep.png';
 import PopUp from "./components/Popup";
 
+console.log(process.env.REACT_APP_APIKEY)
 function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [city, setCity] = useState("");
   const [results, setResults] = useState(null);
-  const [popUp, setPopUp] = useState(false);
+  const [popUp, setPopUp] = useState(true);
   
 
   useEffect(() => {
