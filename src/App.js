@@ -26,7 +26,6 @@ function App() {
         }
       )
   }, [city])
-
   if (error) {
     return <div>Error: {error.message}</div>;
   } else {
@@ -43,6 +42,7 @@ function App() {
           {console.log(results)}
           {isLoaded && results && <>
             <h3>{results.weather[0].main}</h3>
+            {results.weather[0].main==="Rain" && <h3>Bring an Umbrella, it might get wet!</h3>}
             <p>Feels like {results.main.feels_like}°C</p>
             <i><p>{results.name}, {results.sys.country}</p></i>
           </>}
