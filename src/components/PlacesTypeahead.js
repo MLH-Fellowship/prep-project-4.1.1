@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../styles/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.min.css";
 
