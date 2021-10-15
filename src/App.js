@@ -8,6 +8,7 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [city, setCity] = useState("New York City");
   const [results, setResults] = useState(null);
+  const [searchHistory, setSearchHistory] = useState([]);
 
   useEffect(() => {
     fetch(
@@ -25,6 +26,15 @@ function App() {
           } else {
             setIsLoaded(true);
             setResults(result);
+            const weatherInfo = {
+              overallWeather: result.weather[0].main,
+              feelsLikeWeather: result.main.feels_like,
+              location: `${result.name}, ${result.sys.country}`,
+            };
+            const WeatherInfo = JSON.stringify(weatherInfo);
+            searchHistory.push(WeatherInfo);
+            setSearchHistory(searchHistory);
+            console.log("Search History: " + searchHistory);
           }
         },
         (error) => {
@@ -32,7 +42,7 @@ function App() {
           setError(error);
         }
       );
-  }, [city]);
+  }, [city, searchHistory]);
 
   if (error) {
     return <div>Error: {error.message}</div>;
