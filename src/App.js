@@ -8,16 +8,17 @@ function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [city, setCity] = useState("New York City");
+  const [searchCity, setSearchCity] = useState("New York City");
   const [results, setResults] = useState(null);
   const [searchHistory, setSearchHistory] = useState([]);
 
   useEffect(() => {
     fetch(
       "https://api.openweathermap.org/data/2.5/weather?q=" +
-        city +
-        "&units=metric" +
-        "&appid=" +
-        process.env.REACT_APP_APIKEY
+      city +
+      "&units=metric" +
+      "&appid=" +
+      process.env.REACT_APP_APIKEY
     )
       .then((res) => res.json())
       .then(
@@ -45,6 +46,8 @@ function App() {
       );
   }, [city, searchHistory]);
 
+  const getWeather = () => setCity(searchCity);
+
   if (error) {
     return <div>Error: {error.message}</div>;
   } else {
@@ -55,10 +58,10 @@ function App() {
           <h2>Enter a city below 👇</h2>
           <input
             type="text"
-            value={city}
-            onChange={(event) => setCity(event.target.value)}
+            value={searchCity}
+            onChange={(event) => setSearchCity(event.target.value)}
           />
-          <button className="search-btn">
+          <button className="search-btn" onClick={getWeather} >
             <img className="search-logo" alt="Search" src={searchIcon} />
           </button>
           <div className="Results">
