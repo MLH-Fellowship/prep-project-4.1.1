@@ -5,6 +5,8 @@ import { Bar } from "react-chartjs-2";
 import { BASE, ONECALL } from "../../utils/constants.ts";
 import { GET } from "../../utils/endpoints.ts";
 import { dataClean } from "../../utils/config.ts";
+import Carousel from 'react-material-ui-carousel'
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 const Graph = (props) => {
   const [longitude, setLongitude] = useState(props.latitude || 77.1025);
@@ -53,26 +55,27 @@ const Graph = (props) => {
       },
     ],
   };
-  const pieData = {
-    labels: ["January", "February", "March", "April", "May"],
+  const scatterData = {
     datasets: [
       {
-        label: "Rainfall",
-        backgroundColor: [
-          "#B21F00",
-          "#C9DE00",
-          "#2FDE00",
-          "#00A6B4",
-          "#6800B4",
+        label: 'A dataset',
+        data: [
+          { x: rand(), y: rand() },
+          { x: rand(), y: rand() },
+          { x: rand(), y: rand() },
+          { x: rand(), y: rand() },
+          { x: rand(), y: rand() },
+          { x: rand(), y: rand() },
+          { x: rand(), y: rand() },
+          { x: rand(), y: rand() },
+          { x: rand(), y: rand() },
+          { x: rand(), y: rand() },
+          { x: rand(), y: rand() },
+          { x: rand(), y: rand() },
+          { x: rand(), y: rand() },
+          { x: rand(), y: rand() },
         ],
-        hoverBackgroundColor: [
-          "#501800",
-          "#4B5000",
-          "#175000",
-          "#003350",
-          "#35014F",
-        ],
-        data: [65, 59, 80, 81, 56],
+        backgroundColor: 'rgba(255, 99, 132, 1)',
       },
     ],
   };
@@ -95,27 +98,24 @@ const Graph = (props) => {
   useEffect(() => {
     fetchForecast(latitude, longitude);
   }, [latitude, longitude]);
-  const types = ["Bar", "Pie", "Line"];
-  const data = [barData, pieData, lineData];
+  const types = ["Bar", "Scatter", "Line"];
+  const data = [barData, scatterData, lineData];
 
   return (
     <>
       <div>Graph</div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-        }}
-      >
-        {types.map((type, id) => {
-          return (
-            <div style={{ width: "30%" }} key={id}>
-              <TypeGraph data={data[id]} type={type} />
-            </div>
-          );
-        })}
-      </div>
+        <Carousel 
+        NextIcon={<NavigateNextIcon/>}
+        PrevIcon={<NavigateNextIcon/>}
+        >
+          {types.map((type, id) => {
+            return (
+              <div style={{ width: "50%" ,margin:'auto',height:'20%',background:'#fff'}} key={id}>
+                <TypeGraph data={data[id]} type={type} />
+              </div>
+            );
+          })}
+      </Carousel>
     </>
   );
 }

@@ -1,6 +1,4 @@
-import { Bar } from "react-chartjs-2";
-import { Line } from "react-chartjs-2";
-import { Pie, Doughnut } from "react-chartjs-2";
+import { Bar,Scatter,Line,Pie } from "react-chartjs-2";
 import { graphConfig } from "../../../utils/config.ts"
 
 function TypeGraph(props) {
@@ -12,8 +10,8 @@ function TypeGraph(props) {
       {props.type === "Line" ? (
         <Line options={() => graphConfig(props.type)} data={props.data} />
       ) : null}
-      {props.type === "Pie" ? (
-        <Pie options={() => graphConfig(props.type)} data={props.data} />
+      {props.type === "Scatter" ? (
+        <Scatter options={() => graphConfig(props.type)} data={props.data} />
       ) : null}
     </>
   );

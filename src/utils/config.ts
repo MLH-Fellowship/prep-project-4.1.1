@@ -28,16 +28,15 @@ export const graphConfig = (type: string) => {
     };
   } else if (type === "Pie") {
     return {
-      title: {
-        display: true,
-        text: "Average Rainfall per month",
-        fontSize: 20,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+            },
+          },
+        ],
       },
-      legend: {
-        display: true,
-        position: "right",
-      },
-      maintainAspectRatio: false,
     };
   } else if (type === "Line") {
     return {
