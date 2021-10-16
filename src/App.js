@@ -48,6 +48,10 @@ function App() {
 
   const getWeather = () => setCity(searchCity);
 
+  const searchOnEnter = event => {
+    if (event.key === 'Enter') getWeather();
+  }
+
   if (error) {
     return <div>Error: {error.message}</div>;
   } else {
@@ -60,6 +64,7 @@ function App() {
             type="text"
             value={searchCity}
             onChange={(event) => setSearchCity(event.target.value)}
+            onKeyPress={searchOnEnter}
           />
           <button className="search-btn" onClick={getWeather} >
             <img className="search-logo" alt="Search" src={searchIcon} />
