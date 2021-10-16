@@ -10,15 +10,15 @@ function App() {
   const [city, setCity] = useState("New York City");
   const [searchCity, setSearchCity] = useState("New York City");
   const [results, setResults] = useState(null);
-  const [searchHistory, setSearchHistory] = useState([]);
+  const [searchHistory, setSearchHistory] = useState(["New York, US"]);
 
   useEffect(() => {
     fetch(
       "https://api.openweathermap.org/data/2.5/weather?q=" +
-      city +
-      "&units=metric" +
-      "&appid=" +
-      process.env.REACT_APP_APIKEY
+        city +
+        "&units=metric" +
+        "&appid=" +
+        process.env.REACT_APP_APIKEY
     )
       .then((res) => res.json())
       .then(
@@ -28,15 +28,22 @@ function App() {
           } else {
             setIsLoaded(true);
             setResults(result);
-            const weatherInfo = {
-              overallWeather: result.weather[0].main,
-              feelsLikeWeather: result.main.feels_like,
-              location: `${result.name}, ${result.sys.country}`,
-            };
-            const WeatherInfo = JSON.stringify(weatherInfo);
-            searchHistory.push(WeatherInfo);
-            setSearchHistory(searchHistory);
-            console.log("Search History: " + searchHistory);
+
+            const location = `${result.name}, ${result.sys.country}`;
+
+            // Checking if the city is the most recent search
+            if (location !== searchHistory[0]) {
+              // making a deep copy of searchHistory
+              var search_history = JSON.parse(JSON.stringify(searchHistory));
+
+              if (search_history.length < 5) {
+                search_history.unshift(location);
+              } else {
+                search_history.pop();
+                search_history.unshift(location);
+              }
+              setSearchHistory(search_history);
+            }
           }
         },
         (error) => {
@@ -48,9 +55,9 @@ function App() {
 
   const getWeather = () => setCity(searchCity);
 
-  const searchOnEnter = event => {
-    if (event.key === 'Enter') getWeather();
-  }
+  const searchOnEnter = (event) => {
+    if (event.key === "Enter") getWeather();
+  };
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -66,7 +73,7 @@ function App() {
             onChange={(event) => setSearchCity(event.target.value)}
             onKeyPress={searchOnEnter}
           />
-          <button className="search-btn" onClick={getWeather} >
+          <button className="search-btn" onClick={getWeather}>
             <img className="search-logo" alt="Search" src={searchIcon} />
           </button>
           <div className="Results">
