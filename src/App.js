@@ -42,16 +42,16 @@ function App() {
     return <div>Error: {error.message}</div>;
   } else {
     return (
-      <>
-        <CityContextProvider>
-          <img className="logo" src={logo} alt="MLH Prep Logo"></img>
-          <div>
-            <h2>Enter a city below 👇</h2>
-            <input
-              type="text"
-              value={city}
-              onChange={(event) => setCity(event.target.value)}
-            />
+      <CityContextProvider>
+        <img className="logo" src={logo} alt="MLH Prep Logo"></img>
+        <div>
+          <h2>Enter a city below 👇</h2>
+          <input
+            type="text"
+            value={city}
+            onChange={(event) => setCity(event.target.value)}
+          />
+          <div className="Result_card">
             <div className="Results">
               {!isLoaded && <h2>Loading...</h2>}
               {console.log(results)}
@@ -68,8 +68,8 @@ function App() {
               )}
             </div>
           </div>
-        </CityContextProvider>
-      </>
+        </div>
+      </CityContextProvider>
     );
   }
 }

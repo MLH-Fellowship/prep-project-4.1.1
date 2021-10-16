@@ -36,7 +36,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@types/mapbox-gl": "^2.4.2"
-  }
+  "devDependencies": {}
 }
