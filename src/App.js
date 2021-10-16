@@ -52,9 +52,6 @@ function App() {
             {isLoaded && results && (
               <>
                 <h3>{results.weather[0].main}</h3>
-                {results.weather[0].main === "Rain" && (
-                  <h3>Bring an Umbrella, it might get wet!</h3>
-                )}
                 <p>Feels like {results.main.feels_like}°C</p>
                 <i>
                   <p>
@@ -66,13 +63,14 @@ function App() {
           </div>
 
           {/* Tip Div */}
+          {isLoaded && results && (
           <div className="tip-div">
-            {isLoaded && results && (
+            
               <>
                 <h2>
-                  Tip <i class="fa fa-check" aria-hidden="true"></i>
+                  Tip!
                 </h2>
-                {results.weather[0].main === "Rain" && (
+                { (results.weather[0].main === "Rain" || results.weather[0].main === "Clouds" ) && (
                   <h3>
                     Bring an Umbrella, it might get wet!
                     <img
@@ -105,8 +103,8 @@ function App() {
                   </h3>
                 )}
               </>
-            )}
           </div>
+           )}
         </div>
       </>
     );
