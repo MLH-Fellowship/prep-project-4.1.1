@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import searchIcon from "./assets/images/location-pinpoint.svg";
 import logo from "./mlh-prep.png";
 require("dotenv").config();
 
@@ -57,6 +58,9 @@ function App() {
             value={city}
             onChange={(event) => setCity(event.target.value)}
           />
+          <button className="search-btn">
+            <img className="search-logo" alt="Search" src={searchIcon} />
+          </button>
           <div className="Results">
             {!isLoaded && <h2>Loading...</h2>}
             {console.log(results)}
