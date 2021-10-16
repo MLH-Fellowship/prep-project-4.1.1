@@ -9,7 +9,8 @@ function App() {
   const [results, setResults] = useState(null);
 
   useEffect(() => {
-    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&appid=" + process.env.REACT_APP_APIKEY)
+    // fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&appid=" + process.env.REACT_APP_APIKEY)
+    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&appid=7a2d90ea5a4875d7edf4403a6eb6aa0a")
       .then(res => res.json())
       .then(
         (result) => {
