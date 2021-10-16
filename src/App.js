@@ -12,6 +12,15 @@ function App() {
   const [results, setResults] = useState(null);
   const [searchHistory, setSearchHistory] = useState(["New York, US"]);
 
+  // fetch localSearchHistory if it exists
+  if (localStorage.getItem('localSearchHistory')) {
+    var local_search_history = localStorage.getItem('localSearchHistory');
+    if (local_search_history !== JSON.stringify(searchHistory)) {
+      local_search_history = JSON.parse(local_search_history);
+      setSearchHistory(local_search_history);
+    }
+  }
+
   useEffect(() => {
     fetch(
       "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -43,6 +52,8 @@ function App() {
                 search_history.unshift(location);
               }
               setSearchHistory(search_history);
+              search_history = JSON.stringify(search_history);
+              localStorage.setItem('localSearchHistory',search_history);
             }
           }
         },
