@@ -105,15 +105,17 @@ const Graph = (props) => {
   return (
     <>
       <div className='vis-title'>Weather Visualisations</div>
+      <div className='carousel-container'>
         <Carousel>
-          {types.map((type, id) => {
-            return (
-              <div className='typegraph' key={id}>
-                <TypeGraph data={data[id]} type={type} />
-              </div>
-            );
-          })}
-      </Carousel>
+            {types.map((type, id) => {
+              return (
+                <div className='typegraph' key={id}>
+                  <TypeGraph data={data[id]} type={type} />
+                </div>
+              );
+            })}
+        </Carousel>
+      </div>
     </>
   );
 }

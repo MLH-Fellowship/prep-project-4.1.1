@@ -12,6 +12,10 @@
     margin: auto;
 }
 
+.carousel-container{
+    margin-bottom: 70px;
+}
+
 @media only screen and (max-width: 768px) {
     .typegraph{
         width:95%;
