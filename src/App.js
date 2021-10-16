@@ -38,14 +38,16 @@ function App() {
           type="text"
           value={city}
           onChange={event => setCity(event.target.value)} />
-        <div className="Results">
-          {!isLoaded && <h2>Loading...</h2>}
-          {console.log(results)}
-          {isLoaded && results && <>
-            <h3>{results.weather[0].main}</h3>
-            <p>Feels like {results.main.feels_like}°C</p>
-            <i><p>{results.name}, {results.sys.country}</p></i>
-          </>}
+        <div className="Result_card">
+          <div className="Results">
+            {!isLoaded && <h2>Loading...</h2>}
+            {console.log(results)}
+            {isLoaded && results && <>
+              <h3>{results.weather[0].main}</h3>
+              <p>Feels like {results.main.feels_like}°C</p>
+              <i><p>{results.name}, {results.sys.country}</p></i>
+            </>}
+          </div>
         </div>
       </div>
     </>
