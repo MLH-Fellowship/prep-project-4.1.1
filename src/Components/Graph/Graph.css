@@ -1,0 +1,21 @@
+.vis-title{
+    margin: 10px auto;
+    background:black;
+    font-size:25px;
+    padding: 10px;
+}
+
+.typegraph{
+    margin:10px;
+    background:#fff;
+    width:70%;
+    margin: auto;
+}
+
+@media only screen and (max-width: 768px) {
+    .typegraph{
+        width:95%;
+    }
+}
+  
+  

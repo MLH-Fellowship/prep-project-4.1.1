@@ -6,7 +6,7 @@ import { BASE, ONECALL } from "../../utils/constants.ts";
 import { GET } from "../../utils/endpoints.ts";
 import { dataClean } from "../../utils/config.ts";
 import Carousel from 'react-material-ui-carousel'
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import './Graph.css'
 
 const Graph = (props) => {
   const [longitude, setLongitude] = useState(props.latitude || 77.1025);
@@ -87,30 +87,28 @@ const Graph = (props) => {
         label: "Rainfall",
         fill: false,
         lineTension: 0.5,
-        backgroundColor: "rgba(75,192,192,1)",
+        backgroundColor: "rgba(75,192,192,1)",  
         borderColor: "rgba(0,0,0,1)",
         borderWidth: 2,
         data: [65, 59, 80, 81, 56],
       },
     ],
-  };
+};
+
 
   useEffect(() => {
-    fetchForecast(latitude, longitude);
+    // fetchForecast(latitude, longitude);
   }, [latitude, longitude]);
   const types = ["Bar", "Scatter", "Line"];
   const data = [barData, scatterData, lineData];
 
   return (
     <>
-      <div>Graph</div>
-        <Carousel 
-        NextIcon={<NavigateNextIcon/>}
-        PrevIcon={<NavigateNextIcon/>}
-        >
+      <div className='vis-title'>Weather Visualisations</div>
+        <Carousel>
           {types.map((type, id) => {
             return (
-              <div style={{ width: "50%" ,margin:'auto',height:'20%',background:'#fff'}} key={id}>
+              <div className='typegraph' key={id}>
                 <TypeGraph data={data[id]} type={type} />
               </div>
             );
