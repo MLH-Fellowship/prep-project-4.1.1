@@ -13,8 +13,8 @@ function App() {
   const [searchHistory, setSearchHistory] = useState(["New York, US"]);
 
   // fetch localSearchHistory if it exists
-  if (localStorage.getItem('localSearchHistory')) {
-    var local_search_history = localStorage.getItem('localSearchHistory');
+  if (localStorage.getItem("localSearchHistory")) {
+    var local_search_history = localStorage.getItem("localSearchHistory");
     if (local_search_history !== JSON.stringify(searchHistory)) {
       local_search_history = JSON.parse(local_search_history);
       setSearchHistory(local_search_history);
@@ -53,7 +53,7 @@ function App() {
               }
               setSearchHistory(search_history);
               search_history = JSON.stringify(search_history);
-              localStorage.setItem('localSearchHistory',search_history);
+              localStorage.setItem("localSearchHistory", search_history);
             }
           }
         },
@@ -87,20 +87,22 @@ function App() {
           <button className="search-btn" onClick={getWeather}>
             <img className="search-logo" alt="Search" src={searchIcon} />
           </button>
-          <div className="Results">
-            {!isLoaded && <h2>Loading...</h2>}
-            {console.log(results)}
-            {isLoaded && results && (
-              <>
-                <h3>{results.weather[0].main}</h3>
-                <p>Feels like {results.main.feels_like}°C</p>
-                <i>
-                  <p>
-                    {results.name}, {results.sys.country}
-                  </p>
-                </i>
-              </>
-            )}
+          <div className="Result_card">
+            <div className="Results">
+              {!isLoaded && <h2>Loading...</h2>}
+              {console.log(results)}
+              {isLoaded && results && (
+                <>
+                  <h3>{results.weather[0].main}</h3>
+                  <p>Feels like {results.main.feels_like}°C</p>
+                  <i>
+                    <p>
+                      {results.name}, {results.sys.country}
+                    </p>
+                  </i>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </>
