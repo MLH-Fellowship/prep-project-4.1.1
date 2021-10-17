@@ -34,6 +34,44 @@ input {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
+/* Weather Thing Tip Section */
+.tip-div {
+  max-width: 1200px;
+  background: rgba(196, 196, 196, 0.18);
+  border: 1px solid #FFFFFF;
+  box-sizing: border-box;
+  margin: 4% 15%;
+  padding: auto 2%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.tip-div h2 {
+  color: #F1C31F;
+  font-size: 2.1rem;
+  font-weight: 500;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* .fa-check {
+  color: #F1C31F;
+  font-size: 2.1rem;
+} */
+
+.tip-div h3 {
+  font-weight: 400;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  font-size: 1rem;
+}
+
+.tip-img {
+  max-width: 35px;
+  margin-left: 10px;
+}
+
 @media (max-width: 720px) {
   .Results {
     width: 240px;
