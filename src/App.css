@@ -26,7 +26,6 @@ input {
 
 .Results {
   background-color: white;
-  width: 380px;
   margin-top: 20px;
   border-radius: 8px;
   color: black;
@@ -74,6 +73,15 @@ input {
 
 @media (max-width: 720px) {
   .Results {
-    width: 240px;
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+}
+
+
+@media (min-width: 720px) {
+  .Results {
+    margin-left: 150px;
+    margin-right: 150px;
   }
 }
