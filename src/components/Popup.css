@@ -16,6 +16,9 @@
     width:40%;
     max-width: 640px;
     background-color: white;
+    border: 3px solid rgb(248, 91, 0);
+    border-radius: 5px;
+    height: 150px;
 }
 
 .popup-x {
@@ -32,4 +35,8 @@ h1 {
 img {
     width: 45px;
     height: 45px;
+}
+
+button {
+    background-color: white;
 }

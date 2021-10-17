@@ -11,15 +11,16 @@ const PopUp = props => {
     return (
         <div className="PopUp">
             {/* x close window */}
-            <button className="popup-x" onClick={()=> setPopUp(false)} >X</button>
+            
             <div className="pu-content-container">
                 <img className="pu-img" src={city} alt="city" />
                 <h1>Unable to determine your location. Please set it manually</h1>
+                <div className="pu-button-container">
+                <button onClick={()=> setPopUp(false)}>Ok</button>
+            </div>
             </div>
             {/* button controls */}
-            <div className="pu-button-container">
-                <button onClick={()=> setPopUp(false)}>Done</button>
-            </div>
+            
         </div>
     );
 }

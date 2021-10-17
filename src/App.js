@@ -9,7 +9,7 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [city, setCity] = useState("");
   const [results, setResults] = useState(null);
-  const [popUp, setPopUp] = useState(true);
+  const [popUp, setPopUp] = useState(false);
   
 
   useEffect(() => {
