@@ -76,7 +76,6 @@ function App() {
             value={city}
             onChange={(event) => setCity(event.target.value)}
           />
-          <div className="Result_card">
           <div className="Results">
             {!isLoaded && <h2>Loading...</h2>}
             {isLoaded && results && (
@@ -126,7 +125,6 @@ function App() {
                 </div>
               </>
             )}
-            </div>
           </div>
 
           {/* Tip Div */}
