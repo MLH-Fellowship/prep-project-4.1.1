@@ -6,6 +6,12 @@ import logo from "./mlh-prep.png";
 import PopUp from "./components/Popup";
 import Graph from "./Components/Graph/Graph";
 require("dotenv").config();
+import Rain from "./assets/rain.mp4";
+import Default from "./assets/fog.mp4";
+import Clear from "./assets/clear.mp4";
+import Clouds from "./assets/clouds.mp4";
+import Snow from "./assets/snow.mp4";
+import Thunderstorm from "./assets/thunderstorm.mp4";
 
 function App() {
   const [error, setError] = useState(null);
@@ -51,6 +57,17 @@ function App() {
 
     fetchData();
   }, []);
+  const [weather, setWeather] = useState(null);
+
+  const mapWeatherBGToAPI = {
+    Clear: Clear,
+    Clouds: Clouds,
+    Rain: Rain,
+    Haze: Default,
+    Drizzle: Rain,
+    Snow: Snow,
+    Thunderstorm: Thunderstorm,
+  };
 
   useEffect(() => {
     fetch(
@@ -86,6 +103,9 @@ function App() {
               search_history = JSON.stringify(search_history);
               localStorage.setItem("localSearchHistory", search_history);
             }
+            mapWeatherBGToAPI[result.weather[0].main] === undefined
+              ? setWeather(Default)
+              : setWeather(mapWeatherBGToAPI[result.weather[0].main]);
           }
         },
         (error) => {
@@ -130,7 +150,6 @@ function App() {
   } else {
     return (
       <>
-        <img className="logo" src={logo} alt="MLH Prep Logo"></img>
         <div>
           <h2>Enter a city below 👇</h2>
           <input
