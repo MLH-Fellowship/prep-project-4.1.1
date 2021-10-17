@@ -8,10 +8,6 @@ function App() {
   const [city, setCity] = useState("New York City");
   const [results, setResults] = useState(null);
 
-  // const API_KEY_RAW = process.env.REACT_APP_APIKEY.toString();
-  // API_KEY_RAW.toString();
-  // console.log(API_KEY_RAW);
-
   useEffect(() => {
     fetch(
       "https://api.openweathermap.org/data/2.5/weather?q=" +
