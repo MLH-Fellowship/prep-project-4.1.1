@@ -116,7 +116,7 @@ function App() {
 
                         <h3>{object.weather[0].main}</h3>
                         <p>Feels like {object.feels_like}°C</p>
-                        <p>At {object.dt}</p>
+                        <p>At {new Date(object.dt * 1000).toString()}</p>
                       </div>
                     ))}
                   </div>
