@@ -61,6 +61,8 @@ function App() {
               </>
             )}
           </div>
+
+{/* Tip Div */} {isLoaded && results && ( <div className="tip-div"> <> <h2> Tip! </h2> { (results.weather[0].main === "Rain" || results.weather[0].main === "Clouds" ) && ( <h3> Bring an Umbrella, it might get wet! <img src="umbrella.png" alt="Umbrella" className="tip-img" /> </h3> )} {results.weather[0].main === "Snow" && ( <h3> Bring your coat, it might get chilly! <img src="coat.png" alt="Coat" className="tip-img" /> </h3> )} {results.weather[0].main === "Clear" && ( <h3> Bring your suncream, so that tan is good!{" "} <img src="suncream.png" alt="Sun Cream" className="tip-img" /> </h3> )} {results.wind.speed >= 2.0 && ( <h3> Bring your wind-cheater, lest you want wind bites! <img src="jacket.png" alt="Jacket" className="tip-img" /> </h3> )} </> </div> )} </div>
         </div>
       </>
     );
