@@ -42,7 +42,7 @@ function App() {
           type="text"
           value={city}
           onChange={event => setCity(event.target.value)} />
-        <button type='submit' onClick={()=>setShowGraph(state=>!state)} >Toggle Graph</button> 
+        <button type='submit' className={showGraph ? 'toggle-graph active' : 'toggle-graph'}onClick={()=>setShowGraph(state=>!state)} >Visualize</button> 
         <div className="Results">
           {!isLoaded && <h2>Loading...</h2>}
           {console.log(results)}

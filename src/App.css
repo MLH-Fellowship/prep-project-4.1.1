@@ -30,3 +30,27 @@ input {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
+.toggle-graph{
+  height: auto;
+  padding: 10px;
+  font-size: 15px;
+  margin-left: 5px;
+  background-color: black;
+  color:#fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box;
+}
+
+.toggle-graph:hover{
+  background-color: burlywood;
+  color: black;
+  transform: scale(0.8);
+}
+
+.active{
+  background-color: burlywood;
+  color: black;
+}
