@@ -46,7 +46,7 @@ function App() {
           coordinates.lat +
           "&lon=" +
           coordinates.lon +
-          "&exclude=minutely,daily&units=" + process.env.REACT_APP_APIKEY
+          "&exclude=minutely,daily&units=metric&appid=" + process.env.REACT_APP_APIKEY
       )
         .then((res) => res.json())
         .then(
