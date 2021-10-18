@@ -2,8 +2,10 @@ import React from "react";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapboxgl from "!mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import useFetch from "../../hooks/useFetch";
 
-mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
+const accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
+mapboxgl.accessToken = accessToken;
 
 const Map = () => {
   const mapContainer = React.useRef(null);
@@ -15,11 +17,24 @@ const Map = () => {
     lat: 42,
     zoom: 9,
   });
+  const [location, setLocation] = React.useState({
+    loading: false,
+    error: null,
+    location: null,
+  });
+
+  const [apiResponse, refetch] = useFetch();
 
   const clickHandler = (e) => {
     let { lng, lat } = e.lngLat;
     lng = lng.toFixed(4);
     lat = lat.toFixed(4);
+
+    refetch(
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng}, ${lat}.json?access_token=${accessToken}`,
+      "GET",
+      {}
+    );
 
     setMapConfig({
       lng: lng,
@@ -61,9 +76,50 @@ const Map = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  React.useEffect(() => {
+    if (apiResponse.status === "loading") {
+      setLocation({
+        loading: true,
+        error: null,
+        data: null,
+      });
+
+      return;
+    }
+
+    if (apiResponse.status === "error") {
+      setLocation({
+        loading: false,
+        error: apiResponse.error,
+        data: null,
+      });
+
+      return;
+    }
+
+    if (apiResponse.status === "success") {
+      setLocation({
+        loading: false,
+        error: null,
+        location: apiResponse.data.features[0].place_name,
+      });
+
+      return;
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [apiResponse.status]);
+
   return (
     <div>
       <div ref={mapContainer} style={{ height: "500px" }}></div>
+      <div>
+        {location.loading
+          ? "Loading..."
+          : location.error
+          ? `Error: ${location.error}`
+          : `Location: ${JSON.stringify(location.location)}`}
+      </div>
     </div>
   );
 };
