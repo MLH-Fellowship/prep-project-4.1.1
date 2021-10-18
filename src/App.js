@@ -54,7 +54,6 @@ function App() {
           <div className="Result_card">
             <div className="Results">
               {!isLoaded && <h2>Loading...</h2>}
-              {console.log(results)}
               {isLoaded && results && (
                 <>
                   <h3>{results.weather[0].main}</h3>
@@ -68,9 +67,10 @@ function App() {
               )}
             </div>
           </div>
-          {(showGraph ? <Graph/> : null)}
-          {/* Tip Div */}
-          {isLoaded && results && (
+        </div>
+        {(showGraph ? <Graph/> : null)}
+        {/* Tip Div */}
+        {isLoaded && results && (
             <div className="tip-div">
               <>
                 <h2>Tip!</h2>
@@ -110,7 +110,6 @@ function App() {
               </>
             </div>
           )}
-        </div>
       </>
     );
   }
