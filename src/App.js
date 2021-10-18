@@ -52,8 +52,8 @@ function App() {
               onChange={selected => selected && selected.length > 0 && setCity(selected)}
               onKeyDown={(event) => event.key === "Enter" && setCity(event.target.value)}
             />
+            <button type='submit' className={showGraph ? 'toggle-graph active' : 'toggle-graph'}onClick={()=>setShowGraph(state=>!state)} >Visualize</button> 
           </div>
-          <button type='submit' className={showGraph ? 'toggle-graph active' : 'toggle-graph'}onClick={()=>setShowGraph(state=>!state)} >Visualize</button> 
           <div className="Result_card">
             <div className="Results">
               {!isLoaded && <h2>Loading...</h2>}

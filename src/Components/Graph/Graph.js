@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import TypeGraph from "./TypeGraph/TypeGraph";
 import { Bar } from "react-chartjs-2";
 import { BASE, ONECALL } from "../../utils/constants.js";

@@ -35,8 +35,10 @@ input {
 }
 
 #city-typeahead-container {
-  width: 200px;
+  width: 25%;
   margin: auto;
+  display: flex;
+  justify-content: center;
 }
 
 /* Weather Thing Tip Section */
