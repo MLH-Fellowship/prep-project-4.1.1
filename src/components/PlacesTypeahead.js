@@ -50,17 +50,6 @@ export default function PlacesTypeahead(props) {
       options={options}
       placeholder="Enter City Name..."
       isLoading={isLoading}
-      renderMenuItemChildren={(option, props) => (
-        <>
-          <div 
-            style={{
-              padding: '8px',
-            }}
-          >
-              {`${option.name}, ${option.country}`}
-            </div>
-        </>
-      )}
     />
   );
 }

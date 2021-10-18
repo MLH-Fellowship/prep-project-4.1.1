@@ -38,7 +38,7 @@ function App() {
         <div id="city-typeahead-container">
           <PlacesTypeahead
             apiKey={process.env.REACT_APP_API_NINJAS_API_KEY}
-            onChange={selected => selected && selected.length > 0 && setCity(`${selected[0].name}, ${selected[0].country}`)} />
+            onChange={selected => selected && selected.length > 0 && setCity(selected)} />
         </div>
         <div className="Result_card">
           <div className="Results">
