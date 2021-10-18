@@ -1,8 +1,12 @@
 .vis-title{
-    margin: 10px auto;
+    margin: 20px auto;
+    margin-top: 0px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
     background:black;
     font-size:25px;
     padding: 10px;
+    font-variant: small-caps;
 }
 
 .typegraph{
@@ -13,12 +17,25 @@
 }
 
 .carousel-container{
-    margin-bottom: 70px;
+    margin-bottom: 20px;
+}
+
+.analytics {
+    /* position: absolute; */
+    background-color: white;
+    /* top: 10vh;
+    left: 10vw; */
+    margin: auto;
+    margin-top: 50px;
+    height: max-content;
+    width: 80vw;
+    border-radius: 30px;
+    padding-bottom: 10px;
 }
 
 @media only screen and (max-width: 768px) {
     .typegraph{
-        width:95%;
+        width:100%;
     }
 }
   
