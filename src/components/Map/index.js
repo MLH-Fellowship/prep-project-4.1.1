@@ -116,7 +116,6 @@ const Map = () => {
       });
 
       setCityData({
-        ...city,
         name: apiResponse.data.features[apiResponse.data.features.length - 2]
           .place_name,
       });
