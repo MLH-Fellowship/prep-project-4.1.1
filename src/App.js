@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PlacesTypeahead from "./components/PlacesTypeahead";
 import './App.css';
 import logo from './mlh-prep.png'
 import Graph from "./Components/Graph/Graph";
@@ -45,11 +46,13 @@ function App() {
         <img className="logo" src={logo} alt="MLH Prep Logo"></img>
         <div>
           <h2>Enter a city below 👇</h2>
-          <input
-            type="text"
-            value={city}
-            onChange={(event) => setCity(event.target.value)}
-          />
+          <div id="city-typeahead-container">
+            <PlacesTypeahead
+              apiKey={process.env.REACT_APP_API_NINJAS_API_KEY}
+              onChange={selected => selected && selected.length > 0 && setCity(selected)}
+              onKeyDown={(event) => event.key === "Enter" && setCity(event.target.value)}
+            />
+          </div>
           <button type='submit' className={showGraph ? 'toggle-graph active' : 'toggle-graph'}onClick={()=>setShowGraph(state=>!state)} >Visualize</button> 
           <div className="Result_card">
             <div className="Results">
