@@ -1,5 +1,5 @@
 import { Bar,Scatter,Line,Pie } from "react-chartjs-2";
-import { graphConfig } from "../../../utils/config.ts"
+import { graphConfig } from "../../../utils/config.js"
 
 function TypeGraph(props) {
   return (
