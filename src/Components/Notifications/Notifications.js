@@ -1,8 +1,9 @@
+import "../Graph/Graph.css"
 
 export default function Notify(props){
     return(
         <div
-        style={{padding:'20px',background:'orange',width:'90%',margin:'auto',color:'white'}}
+        className="vis-title notify"
         >{props.notification}</div>
     )
 }

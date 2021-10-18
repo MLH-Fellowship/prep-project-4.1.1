@@ -8,6 +8,7 @@ import { dataClean, getBarData, getLineData, getScatterData } from "../../utils/
 import Carousel from 'react-material-ui-carousel'
 import './Graph.css'
 import Spinner from "../Spinner/Spinner"
+import Notify from "../Notifications/Notifications"
 import dummy from "./dummy.json"
 
 
@@ -16,6 +17,7 @@ const Graph = (props) => {
   const [latitude, setLatitude] = useState(props.longitude || 28.7041);
   const [isLoaded, setIsLoaded] = useState(false);
   const [graphData, setGraphData] = useState([]);
+  const [error,setError] = useState(null);
 
   const datasets = {};
 
@@ -33,13 +35,14 @@ const Graph = (props) => {
           datasets[key] = dataClean(fields, data[key]);
         return;
       });
-      //console.log(data, datasets);
+      // console.log(data, datasets);
     } catch (err) {
       Object.keys(dummy).map((key) => {
         if (frequency.includes(key))
           datasets[key] = dataClean(fields, dummy[key]);
         return;
       });
+      setError("There is some problem in fetching , you are currently seeing visualisation of New Delhi's Weather")
       console.error(err);
     }
   };
@@ -135,6 +138,7 @@ const Graph = (props) => {
 
   return (
     <>
+      {error ? <Notify notification={error} /> : null}
       {isLoaded ? (
         <div className='analytics'>
         <div className='vis-title'>Weather Visualisations</div>
