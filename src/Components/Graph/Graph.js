@@ -7,6 +7,8 @@ import { GET } from "../../utils/endpoints.ts";
 import { dataClean, getBarData, getLineData, getScatterData } from "../../utils/config.ts";
 import Carousel from 'react-material-ui-carousel'
 import './Graph.css'
+import Spinner from "../Spinner/Spinner"
+
 
 const Graph = (props) => {
   const [longitude, setLongitude] = useState(props.latitude || 77.1025);
@@ -35,50 +37,6 @@ const Graph = (props) => {
       console.error(err);
     }
   };
-
-  const rand = () => Math.round(Math.random() * 100);
-
-  const barData = {};
-  
-  const scatterData = {
-    datasets: [
-      {
-        label: 'A dataset',
-        data: [
-          { x: rand(), y: rand() },
-          { x: rand(), y: rand() },
-          { x: rand(), y: rand() },
-          { x: rand(), y: rand() },
-          { x: rand(), y: rand() },
-          { x: rand(), y: rand() },
-          { x: rand(), y: rand() },
-          { x: rand(), y: rand() },
-          { x: rand(), y: rand() },
-          { x: rand(), y: rand() },
-          { x: rand(), y: rand() },
-          { x: rand(), y: rand() },
-          { x: rand(), y: rand() },
-          { x: rand(), y: rand() },
-        ],
-        backgroundColor: 'rgba(255, 99, 132, 1)',
-      },
-    ],
-  };
-
-  const lineData = {
-    labels: ["January", "February", "March", "April", "May"],
-    datasets: [
-      {
-        label: "Rainfall",
-        fill: false,
-        lineTension: 0.5,
-        backgroundColor: "rgba(75,192,192,1)",  
-        borderColor: "rgba(0,0,0,1)",
-        borderWidth: 2,
-        data: [65, 59, 80, 81, 56],
-      },
-    ],
-};
 
   const types = ["Line", "Line", "Bar", "Line", "Scatter"];
   const freq_fields = [
@@ -168,28 +126,31 @@ const Graph = (props) => {
     setIsLoaded(true);
   }, [latitude, longitude]);
 
-  const data = [barData, scatterData, lineData];
 
   return (
-    <div className='analytics'>
-      <div className='vis-title'>Weather Visualisations</div>
-      <div className='carousel-container'>
-        {isLoaded && 
-          <Carousel
-            autoPlay={false}
-            navButtonsAlwaysVisible
-          >
-              {types.map((type, id) => {
-                return (
-                  <div className='typegraph' key={id}>
-                    <TypeGraph data={graphData[id]} type={type} />
-                  </div>
-                );
-              })}
-          </Carousel>
-        }
-      </div>
-    </div>
+    <>
+      {isLoaded ? (
+        <div className='analytics'>
+        <div className='vis-title'>Weather Visualisations</div>
+        <div className='carousel-container'>
+            <Carousel
+              autoPlay={false}
+              navButtonsAlwaysVisible
+            >
+                {types.map((type, id) => {
+                  return (
+                    <div className='typegraph' key={id}>
+                      <TypeGraph data={graphData[id]} type={type} />
+                    </div>
+                  );
+                })}
+            </Carousel>
+        </div>
+        </div>
+      )
+      :<div style={{margin:'100px auto',width:'100%',display:'flex',justifyContent:'center'}}><Spinner/></div>
+    }
+    </>
   );
 }
 
