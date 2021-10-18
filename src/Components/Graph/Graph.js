@@ -2,12 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import TypeGraph from "./TypeGraph/TypeGraph";
 import { Bar } from "react-chartjs-2";
-import { BASE, ONECALL } from "../../utils/constants.ts";
-import { GET } from "../../utils/endpoints.ts";
-import { dataClean, getBarData, getLineData, getScatterData } from "../../utils/config.ts";
+import { BASE, ONECALL } from "../../utils/constants.js";
+import { GET } from "../../utils/endpoints.js";
+import { dataClean, getBarData, getLineData, getScatterData } from "../../utils/config.js";
 import Carousel from 'react-material-ui-carousel'
 import './Graph.css'
 import Spinner from "../Spinner/Spinner"
+import dummy from "./dummy.json"
 
 
 const Graph = (props) => {
@@ -32,8 +33,13 @@ const Graph = (props) => {
           datasets[key] = dataClean(fields, data[key]);
         return;
       });
-      // console.log(data, datasets);
+      //console.log(data, datasets);
     } catch (err) {
+      Object.keys(dummy).map((key) => {
+        if (frequency.includes(key))
+          datasets[key] = dataClean(fields, dummy[key]);
+        return;
+      });
       console.error(err);
     }
   };
