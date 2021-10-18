@@ -24,10 +24,7 @@ export default function PlacesTypeahead(props) {
     .then(data => {
       setIsLoading(false);
       setOptions(data && !data.error ? data.map(city => {
-        return {
-          name: city.name,
-          country: city.country
-        };
+        return city.name + ", " + city.country;
       }) : []);
     });
   };
@@ -40,7 +37,6 @@ export default function PlacesTypeahead(props) {
   return (
     <AsyncTypeahead
       id="places-typeahead"
-      labelKey={option => `${option.name}, ${option.country}`}
       minLength={1}
       delay={200}
       useCache
