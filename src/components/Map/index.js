@@ -1,26 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapboxgl from "!mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import useFetch from "../../hooks/useFetch";
+import { CityContext } from "../../context/CityProvider";
 
 const accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 mapboxgl.accessToken = accessToken;
 
 const Map = () => {
+  const { city, setCityData } = useContext(CityContext);
+
   const mapContainer = React.useRef(null);
   const map = React.useRef(null);
   const marker = React.useRef(null);
 
   const [mapConfig, setMapConfig] = React.useState({
-    lng: -70,
-    lat: 42,
+    lng: city.longitude,
+    lat: city.latitude,
     zoom: 9,
   });
+
   const [location, setLocation] = React.useState({
     loading: false,
     error: null,
-    location: null,
+    location: city.name,
   });
 
   const [apiResponse, refetch] = useFetch();
@@ -40,6 +44,11 @@ const Map = () => {
       lng: lng,
       lat: lat,
       zoom: 13,
+    });
+
+    setCityData({
+      longitude: lng,
+      latitude: lat,
     });
 
     map.current.flyTo({
@@ -101,7 +110,15 @@ const Map = () => {
       setLocation({
         loading: false,
         error: null,
-        location: apiResponse.data.features[0].place_name,
+        location:
+          apiResponse.data.features[apiResponse.data.features.length - 2]
+            .place_name,
+      });
+
+      setCityData({
+        ...city,
+        name: apiResponse.data.features[apiResponse.data.features.length - 2]
+          .place_name,
       });
 
       return;
@@ -112,7 +129,16 @@ const Map = () => {
 
   return (
     <div>
-      <div ref={mapContainer} style={{ height: "500px" }}></div>
+      <div
+        ref={mapContainer}
+        style={{
+          height: "500px",
+          width: "80vw",
+          margin: "auto",
+          marginTop: "20px",
+          borderRadius: "20px",
+        }}
+      ></div>
       <div>
         {location.loading
           ? "Loading..."

@@ -4,9 +4,9 @@ export const CityContext = createContext();
 
 const CityContextProvider = (props) => {
   const [city, setCity] = useState({
-    name: "",
-    latitude: "",
-    longitude: "",
+    name: "New York City",
+    latitude: 40.7128,
+    longitude: -74.006,
   });
 
   const setCityData = (data) => {
