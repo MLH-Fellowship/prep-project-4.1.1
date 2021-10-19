@@ -27,6 +27,7 @@ function App() {
           console.log(json.city);
           setIsLoaded(true);
           setCity(json.city);
+          setCoordinates({"lat":json.lat, "lon":json.lon});
         } catch (error) {
           setIsLoaded(true);
           setError(error);
