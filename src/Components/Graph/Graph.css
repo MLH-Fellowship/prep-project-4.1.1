@@ -18,6 +18,7 @@
 
 .carousel-container{
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .analytics {
@@ -42,6 +43,13 @@
 @media only screen and (max-width: 768px) {
     .typegraph{
         width:100%;
+    }
+    .notify{
+        font-size: 14px;
+    }
+    .analytics{
+        margin: 10px auto;
+        width: 95%;
     }
 }
   

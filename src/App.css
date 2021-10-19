@@ -35,7 +35,7 @@ input {
 }
 
 #city-typeahead-container {
-  width: 25%;
+  width: 300px;
   margin: auto;
   display: flex;
   justify-content: center;
@@ -106,5 +106,8 @@ input {
 @media (max-width: 720px) {
   .Results {
     width: 240px;
+  }
+  #city-typeahead-container {
+    width: 250px;
   }
 }
