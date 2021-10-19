@@ -1,0 +1,42 @@
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 50vh;
+    background: #0e42a318;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.pu-content-container {
+    position: relative;
+    margin-left: 30%;
+    width:40%;
+    max-width: 640px;
+    background-color: white;
+    border: 3px solid rgb(248, 91, 0);
+    border-radius: 5px;
+    height: 150px;
+}
+
+.popup-x {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+h1 {
+    color: black;
+    font-size: 1rem;
+}
+
+.pu-img {
+    width: 45px;
+    height: 45px;
+}
+
+button {
+    background-color: white;
+}

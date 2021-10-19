@@ -20,7 +20,7 @@ const useFetch = () => {
     try {
       const response = await fetch(config.endpoint, {
         method: config.method,
-        headere: config.headers,
+        headers: config.headers,
       });
       const data = await response.json();
 

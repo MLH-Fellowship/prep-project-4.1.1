@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapboxgl from "!mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -15,10 +15,21 @@ const Map = () => {
   const map = React.useRef(null);
   const marker = React.useRef(null);
 
+  useEffect(() => {
+    if (mapContainer.current) {
+      clickHandler({
+        lngLat: {
+          lng: parseFloat(city.longitude),
+          lat: parseFloat(city.latitude),
+        },
+      });
+    }
+  }, [city.name]);
+
   const [mapConfig, setMapConfig] = React.useState({
     lng: city.longitude,
     lat: city.latitude,
-    zoom: 9,
+    zoom: 5,
   });
 
   const [location, setLocation] = React.useState({
@@ -31,6 +42,7 @@ const Map = () => {
 
   const clickHandler = (e) => {
     let { lng, lat } = e.lngLat;
+    console.log(lng, lat);
     lng = lng.toFixed(4);
     lat = lat.toFixed(4);
 
@@ -43,7 +55,7 @@ const Map = () => {
     setMapConfig({
       lng: lng,
       lat: lat,
-      zoom: 13,
+      zoom: 5,
     });
 
     setCityData({
@@ -51,13 +63,13 @@ const Map = () => {
       latitude: lat,
     });
 
-    map.current.flyTo({
+    map.current?.flyTo({
       center: [lng, lat],
       zoom: 13,
       speed: 0.5,
     });
 
-    marker.current.setLngLat([lng, lat]).addTo(map.current);
+    marker.current?.setLngLat([lng, lat]).addTo(map.current);
   };
 
   React.useEffect(() => {
