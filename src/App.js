@@ -27,7 +27,6 @@ function App() {
           console.log(json.city);
           setIsLoaded(true);
           setCity(json.city);
-          setCoordinates(json.coord);
         } catch (error) {
           setIsLoaded(true);
           setError(error);
@@ -54,7 +53,7 @@ function App() {
           } else {
             setIsLoaded(true);
             setResults(result);
-            setCoordinates(result);
+            setCoordinates(result.coord);
           }
         },
         (error) => {
@@ -102,7 +101,6 @@ function App() {
               onKeyDown={(event) => event.key === "Enter" && setCity(event.target.value)}
             />
           </div>
-          <div className="Result_card">
             <div className="Results">
               {!isLoaded && <h2>Loading...</h2>}
               {console.log(results)}
@@ -145,7 +143,6 @@ function App() {
                 </div>
               </>
             )}
-            </div>
           </div>
 
           {/* Tip Div */}
