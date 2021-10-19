@@ -2,12 +2,36 @@ import { useEffect, useState } from "react";
 import PlacesTypeahead from "./components/PlacesTypeahead";
 import "./App.css";
 import logo from "./mlh-prep.png";
+import PopUp from "./components/Popup";
 
+console.log(process.env.REACT_APP_APIKEY)
 function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [city, setCity] = useState("New York City");
   const [results, setResults] = useState(null);
+  const [popUp, setPopUp] = useState(false);
+  
+
+  useEffect(() => {
+    const url = "https://extreme-ip-lookup.com/json/";
+
+    const fetchData = async () => {
+        try {
+          const response = await fetch(url);
+          const json = await response.json();
+          console.log(json.city);
+          setIsLoaded(true);
+          setCity(json.city);
+        } catch (error) {
+          setIsLoaded(true);
+          setError(error);
+          setPopUp(true);
+        }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     fetch(
