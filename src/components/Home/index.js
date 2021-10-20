@@ -5,6 +5,13 @@ import { CityContext } from "../../context/CityProvider";
 import Graph from "../../Components/Graph/Graph";
 import logo from "../../mlh-prep.png";
 import "../../App.css";
+import ColorSkycons, { ColorSkyconsType } from "react-color-skycons";
+import Rain from "../../assets/rain.mp4";
+import Default from "../../assets/fog.mp4";
+import Clear from "../../assets/clear.mp4";
+import Clouds from "../../assets/clouds.mp4";
+import Snow from "../../assets/snow.mp4";
+import Thunderstorm from "../../assets/thunderstorm.mp4";
 
 const accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
@@ -55,6 +62,18 @@ const Home = () => {
   //   fetchData();
   // }, []);
 
+  const [weather, setWeather] = useState([]);
+
+  const mapWeatherConditionToAPI = {
+    Clear: [Clear, ColorSkyconsType.CLEAR_DAY],
+    Clouds: [Clouds, ColorSkyconsType.CLOUDY],
+    Rain: [Rain, ColorSkyconsType.RAIN],
+    Haze: [Default, ColorSkyconsType.FOG],
+    Drizzle: [Rain, ColorSkyconsType.HAIL],
+    Snow: [Snow, ColorSkyconsType.SNOW],
+    Thunderstorm: [Thunderstorm, ColorSkyconsType.THUNDER_RAIN],
+  };
+
   useEffect(() => {
     fetch(
       "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -89,6 +108,9 @@ const Home = () => {
               search_history = JSON.stringify(search_history);
               localStorage.setItem("localSearchHistory", search_history);
             }
+            mapWeatherConditionToAPI[result.weather[0].main] === undefined
+              ? setWeather(Default)
+              : setWeather(mapWeatherConditionToAPI[result.weather[0].main]);
           }
         },
         (error) => {
@@ -149,6 +171,23 @@ const Home = () => {
       <>
         <img className="logo" src={logo} alt="MLH Prep Logo"></img>
         <div>
+          <video
+            autoPlay
+            muted
+            loop
+            style={{
+              position: "fixed",
+              width: "100vw",
+              height: "100vh",
+              left: 0,
+              top: 0,
+              opacity: isLoaded ? 1 : 0,
+              transition: "opacity, 2s ease-in-out",
+              zIndex: "-1",
+              objectFit: "cover",
+            }}
+            src={weather[0]}
+          />
           <h2>Enter a city below 👇</h2>
           <div id="city-typeahead-container">
             <PlacesTypeahead
@@ -171,10 +210,17 @@ const Home = () => {
             </button>
           </div>
           <div className="Result_card">
-            <div className="Results">
+            <div className="Results Glass">
               {!isLoaded && <h2>Loading...</h2>}
               {isLoaded && results && (
                 <>
+                  <ColorSkycons
+                    type={weather[1]}
+                    animate={true}
+                    size={64}
+                    resizeClear={true}
+                    style={{ paddingTop: "10px" }}
+                  />
                   <h3>{results.weather[0].main}</h3>
                   <p>Feels like {results.main.feels_like}°C</p>
                   <i>
@@ -185,6 +231,31 @@ const Home = () => {
                 </>
               )}
             </div>
+            {!isOnecallLoaded && <h2>Loading...</h2>}
+            {isOnecallLoaded && onecallResults && (
+              <>
+                <div className="container">
+                  <div className="row">
+                    {onecallResults.map((object, i) => (
+                      <div className="card Glass" key={i}>
+                        <img
+                          src={
+                            "https://openweathermap.org/img/wn/" +
+                            object.weather[0].icon +
+                            "@2x.png"
+                          }
+                          alt={object.weather[0].description}
+                        ></img>
+
+                        <h3>{object.weather[0].main}</h3>
+                        <p>Feels like {object.feels_like}°C</p>
+                        <p>At {new Date(object.dt * 1000).toString()}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
         {showGraph ? <Graph /> : null}
