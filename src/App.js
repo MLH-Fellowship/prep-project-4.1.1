@@ -5,7 +5,15 @@ import searchIcon from "./assets/images/location-pinpoint.svg";
 import logo from "./mlh-prep.png";
 import PopUp from "./components/Popup";
 import Graph from "./Components/Graph/Graph";
+import ColorSkycons, { ColorSkyconsType } from "react-color-skycons";
+import Rain from "./assets/rain.mp4";
+import Default from "./assets/fog.mp4";
+import Clear from "./assets/clear.mp4";
+import Clouds from "./assets/clouds.mp4";
+import Snow from "./assets/snow.mp4";
+import Thunderstorm from "./assets/thunderstorm.mp4";
 require("dotenv").config();
+
 
 function App() {
   const [error, setError] = useState(null);
@@ -13,7 +21,7 @@ function App() {
   const [city, setCity] = useState("New York City");
   const [searchCity, setSearchCity] = useState("New York City");
   const [results, setResults] = useState(null);
-  const [showGraph,setShowGraph] = useState(false);
+  const [showGraph, setShowGraph] = useState(false);
   const [searchHistory, setSearchHistory] = useState(["New York, US"]);
   const [popUp, setPopUp] = useState(false);
 
@@ -51,6 +59,17 @@ function App() {
 
     fetchData();
   }, []);
+  const [weather, setWeather] = useState([]);
+
+  const mapWeatherConditionToAPI = {
+    Clear: [Clear, ColorSkyconsType.CLEAR_DAY],
+    Clouds: [Clouds, ColorSkyconsType.CLOUDY],
+    Rain: [Rain, ColorSkyconsType.RAIN],
+    Haze: [Default, ColorSkyconsType.FOG],
+    Drizzle: [Rain, ColorSkyconsType.HAIL],
+    Snow: [Snow, ColorSkyconsType.SNOW],
+    Thunderstorm: [Thunderstorm, ColorSkyconsType.THUNDER_RAIN],
+  };
 
   useEffect(() => {
     fetch(
@@ -86,6 +105,9 @@ function App() {
               search_history = JSON.stringify(search_history);
               localStorage.setItem("localSearchHistory", search_history);
             }
+            mapWeatherConditionToAPI[result.weather[0].main] === undefined
+              ? setWeather(Default)
+              : setWeather(mapWeatherConditionToAPI[result.weather[0].main]);
           }
         },
         (error) => {
@@ -130,8 +152,24 @@ function App() {
   } else {
     return (
       <>
-        <img className="logo" src={logo} alt="MLH Prep Logo"></img>
         <div>
+          <video
+            autoPlay
+            muted
+            loop
+            style={{
+              position: "fixed",
+              width: "100vw",
+              height: "100vh",
+              left: 0,
+              top: 0,
+              opacity: isLoaded ? 1 : 0,
+              transition: "opacity, 2s ease-in-out",
+              zIndex: "-1",
+              objectFit: "cover",
+            }}
+            src={weather[0]}
+          />
           <h2>Enter a city below 👇</h2>
           <input
             type="text"
@@ -153,12 +191,26 @@ function App() {
                 event.key === "Enter" && setCity(event.target.value)
               }
             />
-            <button type='submit' className={showGraph ? 'toggle-graph active' : 'toggle-graph'}onClick={()=>setShowGraph(state=>!state)} >Visualize</button> 
+            <button
+              type="submit"
+              className={showGraph ? "toggle-graph active" : "toggle-graph"}
+              onClick={() => setShowGraph((state) => !state)}
+            >
+              Visualize
+            </button>
           </div>
-            <div className="Results">
+          <div className="Result_card">
+            <div className="Results Glass">
               {!isLoaded && <h2>Loading...</h2>}
               {isLoaded && results && (
                 <>
+                  <ColorSkycons
+                    type={weather[1]}
+                    animate={true}
+                    size={64}
+                    resizeClear={true}
+                    style={{ paddingTop: "10px" }}
+                  />
                   <h3>{results.weather[0].main}</h3>
                   <p>Feels like {results.main.feels_like}°C</p>
                   <i>
@@ -168,8 +220,9 @@ function App() {
                   </i>
                 </>
               )}
+              </div>
             
-            <h3>Hourly forcast</h3>
+            <h3 style={{paddingTop: "2rem"}}>Hourly forcast</h3>
 
             {!isOnecallLoaded && <h2>Loading...</h2>}
             {isOnecallLoaded && onecallResults && (
@@ -177,7 +230,7 @@ function App() {
                 <div className="container">
                   <div className="row">
                     {onecallResults.map((object, i) => (
-                      <div className="card" key={i}>
+                      <div className="card Glass" key={i}>
                         <img
                           src={
                             "https://openweathermap.org/img/wn/" +
@@ -198,48 +251,40 @@ function App() {
             )}
           </div>
         </div>
-        {(showGraph ? <Graph/> : null)}
+        {showGraph ? <Graph /> : null}
         {/* Tip Div */}
         {isLoaded && results && (
-            <div className="tip-div">
-              <>
-                <h2>Tip!</h2>
-                {(results.weather[0].main === "Rain" ||
-                  results.weather[0].main === "Clouds") && (
-                  <h3>
-                    Bring an Umbrella, it might get wet!
-                    <img
-                      src="umbrella.png"
-                      alt="Umbrella"
-                      className="tip-img"
-                    />
-                  </h3>
-                )}
-                {results.weather[0].main === "Snow" && (
-                  <h3>
-                    Bring your coat, it might get chilly!
-                    <img src="coat.png" alt="Coat" className="tip-img" />
-                  </h3>
-                )}
-                {results.weather[0].main === "Clear" && (
-                  <h3>
-                    Bring your suncream, so that tan is good!{" "}
-                    <img
-                      src="suncream.png"
-                      alt="Sun Cream"
-                      className="tip-img"
-                    />
-                  </h3>
-                )}
-                {results.wind.speed >= 2.0 && (
-                  <h3>
-                    Bring your wind-cheater, lest you want wind bites!
-                    <img src="jacket.png" alt="Jacket" className="tip-img" />
-                  </h3>
-                )}
-              </>
-            </div>
-          )}
+          <div className="tip-div">
+            <>
+              <h2>Tip!</h2>
+              {(results.weather[0].main === "Rain" ||
+                results.weather[0].main === "Clouds") && (
+                <h3>
+                  Bring an Umbrella, it might get wet!
+                  <img src="umbrella.png" alt="Umbrella" className="tip-img" />
+                </h3>
+              )}
+              {results.weather[0].main === "Snow" && (
+                <h3>
+                  Bring your coat, it might get chilly!
+                  <img src="coat.png" alt="Coat" className="tip-img" />
+                </h3>
+              )}
+              {results.weather[0].main === "Clear" && (
+                <h3>
+                  Bring your suncream, so that tan is good!{" "}
+                  <img src="suncream.png" alt="Sun Cream" className="tip-img" />
+                </h3>
+              )}
+              {results.wind.speed >= 2.0 && (
+                <h3>
+                  Bring your wind-cheater, lest you want wind bites!
+                  <img src="jacket.png" alt="Jacket" className="tip-img" />
+                </h3>
+              )}
+            </>
+          </div>
+        )}
       </>
     );
   }
