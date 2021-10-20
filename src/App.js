@@ -1,33 +1,44 @@
 import { useEffect, useState } from "react";
 import PlacesTypeahead from "./components/PlacesTypeahead";
 import "./App.css";
+import searchIcon from "./assets/images/location-pinpoint.svg";
 import logo from "./mlh-prep.png";
 import PopUp from "./components/Popup";
+require("dotenv").config();
 
-console.log(process.env.REACT_APP_APIKEY)
 function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [city, setCity] = useState("New York City");
+  const [searchCity, setSearchCity] = useState("New York City");
   const [results, setResults] = useState(null);
+  const [searchHistory, setSearchHistory] = useState(["New York, US"]);
   const [popUp, setPopUp] = useState(false);
-  
+
+  // fetch localSearchHistory if it exists
+  if (localStorage.getItem("localSearchHistory")) {
+    var local_search_history = localStorage.getItem("localSearchHistory");
+    if (local_search_history !== JSON.stringify(searchHistory)) {
+      local_search_history = JSON.parse(local_search_history);
+      setSearchHistory(local_search_history);
+    }
+  }
 
   useEffect(() => {
     const url = "https://extreme-ip-lookup.com/json/";
 
     const fetchData = async () => {
-        try {
-          const response = await fetch(url);
-          const json = await response.json();
-          console.log(json.city);
-          setIsLoaded(true);
-          setCity(json.city);
-        } catch (error) {
-          setIsLoaded(true);
-          setError(error);
-          setPopUp(true);
-        }
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+        console.log(json.city);
+        setIsLoaded(true);
+        setCity(json.city);
+      } catch (error) {
+        setIsLoaded(true);
+        setError(error);
+        setPopUp(true);
+      }
     };
 
     fetchData();
@@ -49,6 +60,24 @@ function App() {
           } else {
             setIsLoaded(true);
             setResults(result);
+
+            const location = `${result.name}, ${result.sys.country}`;
+
+            // Checking if the city is the most recent search
+            if (location !== searchHistory[0]) {
+              // making a deep copy of searchHistory
+              var search_history = JSON.parse(JSON.stringify(searchHistory));
+
+              if (search_history.length < 5) {
+                search_history.unshift(location);
+              } else {
+                search_history.pop();
+                search_history.unshift(location);
+              }
+              setSearchHistory(search_history);
+              search_history = JSON.stringify(search_history);
+              localStorage.setItem("localSearchHistory", search_history);
+            }
           }
         },
         (error) => {
@@ -56,7 +85,13 @@ function App() {
           setError(error);
         }
       );
-  }, [city]);
+  }, [city, searchHistory]);
+
+  const getWeather = () => setCity(searchCity);
+
+  const searchOnEnter = (event) => {
+    if (event.key === "Enter") getWeather();
+  };
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -66,11 +101,25 @@ function App() {
         <img className="logo" src={logo} alt="MLH Prep Logo"></img>
         <div>
           <h2>Enter a city below 👇</h2>
+          <input
+            type="text"
+            value={searchCity}
+            onChange={(event) => setSearchCity(event.target.value)}
+            onKeyPress={searchOnEnter}
+          />
+          <button className="search-btn" onClick={getWeather}>
+            <img className="search-logo" alt="Search" src={searchIcon} />
+          </button>
+
           <div id="city-typeahead-container">
             <PlacesTypeahead
               apiKey={process.env.REACT_APP_API_NINJAS_API_KEY}
-              onChange={selected => selected && selected.length > 0 && setCity(selected)}
-              onKeyDown={(event) => event.key === "Enter" && setCity(event.target.value)}
+              onChange={(selected) =>
+                selected && selected.length > 0 && setCity(selected)
+              }
+              onKeyDown={(event) =>
+                event.key === "Enter" && setCity(event.target.value)
+              }
             />
           </div>
           <div className="Result_card">

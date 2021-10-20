@@ -19,6 +19,20 @@ input {
   width: 200px;
 }
 
+.search-btn {
+  background-color: inherit;
+  border: none;
+  padding: 0 10px;
+  position: relative;
+  top: 12.5px;
+  cursor: pointer;
+}
+
+.search-logo {
+  width: 40px;
+  height: auto;
+}
+
 .Result_card {
   display: grid;
   place-items: center;
