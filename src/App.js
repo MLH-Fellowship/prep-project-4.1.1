@@ -10,8 +10,8 @@ require("dotenv").config();
 function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [city, setCity] = useState("New York City");
-  const [searchCity, setSearchCity] = useState("New York City");
+  const [city, setCity] = useState("");
+  const [searchCity, setSearchCity] = useState("");
   const [results, setResults] = useState(null);
   const [showGraph,setShowGraph] = useState(false);
   const [searchHistory, setSearchHistory] = useState(["New York, US"]);
@@ -41,6 +41,7 @@ function App() {
         console.log(json.city);
         setIsLoaded(true);
         setCity(json.city);
+        setSearchCity(json.city);
         setCoordinates({"lat":json.lat, "lon":json.lon});
       } catch (error) {
         setIsLoaded(true);
