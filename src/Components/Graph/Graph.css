@@ -1,0 +1,56 @@
+.vis-title{
+    margin: 20px auto;
+    margin-top: 0px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    background:black;
+    font-size:25px;
+    padding: 10px;
+    font-variant: small-caps;
+}
+
+.typegraph{
+    margin:10px;
+    background:#fff;
+    width:70%;
+    margin: auto;
+}
+
+.carousel-container{
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.analytics {
+    /* position: absolute; */
+    background-color: white;
+    /* top: 10vh;
+    left: 10vw; */
+    margin: 50px auto;
+    height: max-content;
+    width: 80vw;
+    border-radius: 30px;
+    padding-bottom: 10px;
+}
+
+.notify{
+    width: 80%;
+    border-radius: 20px;
+    margin-top: 40px;
+    background-color: brown;
+}
+
+@media only screen and (max-width: 768px) {
+    .typegraph{
+        width:100%;
+    }
+    .notify{
+        font-size: 14px;
+    }
+    .analytics{
+        margin: 10px auto;
+        width: 95%;
+    }
+}
+  
+  
