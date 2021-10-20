@@ -17,6 +17,10 @@ const Home = () => {
   const [searchHistory, setSearchHistory] = useState(["New York, US"]);
   const [popUp, setPopUp] = useState(false);
 
+  const [coordinates, setCoordinates] = useState(null);
+  const [onecallResults, setOnecallResults] = useState(null);
+  const [isOnecallLoaded, setIsOnecallLoaded] = useState(false);
+
   // fetch localSearchHistory if it exists
   if (localStorage.getItem("localSearchHistory")) {
     var local_search_history = localStorage.getItem("localSearchHistory");
@@ -33,8 +37,14 @@ const Home = () => {
   //     try {
   //       const response = await fetch(url);
   //       const json = await response.json();
+  //       console.log(json.city);
   //       setIsLoaded(true);
-  //       setCityData({ ...city, name: json.city });
+  //       setCityData({
+  //         latitude: json.lat,
+  //         longitude: json.lon,
+  //         name: json.city,
+  //       });
+  //       setCoordinates({ lat: json.lat, lon: json.lon });
   //     } catch (error) {
   //       setIsLoaded(true);
   //       setError(error);
@@ -48,7 +58,7 @@ const Home = () => {
   useEffect(() => {
     fetch(
       "https://api.openweathermap.org/data/2.5/weather?q=" +
-        city +
+        city.name +
         "&units=metric" +
         "&appid=" +
         process.env.REACT_APP_APIKEY
@@ -61,7 +71,7 @@ const Home = () => {
           } else {
             setIsLoaded(true);
             setResults(result);
-
+            setCoordinates(result.coord);
             const location = `${result.name}, ${result.sys.country}`;
 
             // Checking if the city is the most recent search
@@ -86,7 +96,31 @@ const Home = () => {
           setError(error);
         }
       );
-  }, [city, searchHistory]);
+  }, [city.name, searchHistory]);
+
+  useEffect(() => {
+    if (coordinates) {
+      fetch(
+        "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+          coordinates.lat +
+          "&lon=" +
+          coordinates.lon +
+          "&exclude=minutely,daily&units=metric&appid=" +
+          process.env.REACT_APP_APIKEY
+      )
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            setOnecallResults(result.hourly);
+            setIsOnecallLoaded(true);
+          },
+          (error) => {
+            setError(error);
+            setIsOnecallLoaded(true);
+          }
+        );
+    }
+  }, [coordinates]);
 
   const fetchLatLong = (name) => {
     fetch(
