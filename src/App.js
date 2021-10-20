@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import PlacesTypeahead from "./components/PlacesTypeahead";
 import "./App.css";
 import searchIcon from "./assets/images/location-pinpoint.svg";
 import logo from "./mlh-prep.png";
+import PopUp from "./components/Popup";
+require("dotenv").config();
 
 function App() {
   const [error, setError] = useState(null);
@@ -10,6 +13,7 @@ function App() {
   const [searchCity, setSearchCity] = useState("New York City");
   const [results, setResults] = useState(null);
   const [searchHistory, setSearchHistory] = useState(["New York, US"]);
+  const [popUp, setPopUp] = useState(false);
 
   // fetch localSearchHistory if it exists
   if (localStorage.getItem("localSearchHistory")) {
@@ -19,6 +23,26 @@ function App() {
       setSearchHistory(local_search_history);
     }
   }
+
+  useEffect(() => {
+    const url = "https://extreme-ip-lookup.com/json/";
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+        console.log(json.city);
+        setIsLoaded(true);
+        setCity(json.city);
+      } catch (error) {
+        setIsLoaded(true);
+        setError(error);
+        setPopUp(true);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     fetch(
@@ -87,6 +111,17 @@ function App() {
             <img className="search-logo" alt="Search" src={searchIcon} />
           </button>
 
+          <div id="city-typeahead-container">
+            <PlacesTypeahead
+              apiKey={process.env.REACT_APP_API_NINJAS_API_KEY}
+              onChange={(selected) =>
+                selected && selected.length > 0 && setCity(selected)
+              }
+              onKeyDown={(event) =>
+                event.key === "Enter" && setCity(event.target.value)
+              }
+            />
+          </div>
           <div className="Result_card">
             <div className="Results">
               {!isLoaded && <h2>Loading...</h2>}

@@ -6,4 +6,6 @@ We're using the [OpenWeather API](https://openweathermap.org/current) to get wea
 
 You'll need to get your own API Key from their website (for free) and add it as an environment variable in a `.env` file. We have a template available as `example.env`.
 
+We're also using [City API by API Ninjas](https://api-ninjas.com/api/city) to get city names based on given keywords for auto-completion purposes. You'll need to get your own API Key from their website (for free) and add it as an environment variable in the `.env` file. This environment variable is also included in the template file `example.env`.
+
 You'll be using React initially to build this. If you're new to React, check out the [website](https://reactjs.org) for some information on getting started! 
