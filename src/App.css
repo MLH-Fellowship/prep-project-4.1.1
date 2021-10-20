@@ -49,8 +49,10 @@ input {
 }
 
 #city-typeahead-container {
-  width: 200px;
+  width: 300px;
   margin: auto;
+  display: flex;
+  justify-content: center;
 }
 
 /* Weather Thing Tip Section */
@@ -74,6 +76,30 @@ input {
   padding-bottom: 0 !important;
 }
 
+.toggle-graph{
+  height: auto;
+  padding: 10px;
+  font-size: 15px;
+  margin-left: 5px;
+  background-color: black;
+  color:#fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box;
+}
+
+.toggle-graph:hover{
+  background-color: burlywood;
+  color: black;
+  transform: scale(0.8);
+}
+
+.active{
+  background-color: burlywood;
+  color: black;
+}
 /* .fa-check {
   color: #F1C31F;
   font-size: 2.1rem;
@@ -94,5 +120,8 @@ input {
 @media (max-width: 720px) {
   .Results {
     width: 240px;
+  }
+  #city-typeahead-container {
+    width: 250px;
   }
 }
