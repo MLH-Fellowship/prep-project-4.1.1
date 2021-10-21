@@ -12,6 +12,7 @@ export default function PlacesTypeahead(props) {
   const [selected, setSelected] = useState([]);
 
   const handleSearch = query => {
+    props.onSearch(query);
     setIsLoading(true);
     fetch(`${SEARCH_URI}?name=${escape(query)}&limit=${LIMIT}`, {
       method: "GET",
@@ -42,6 +43,7 @@ export default function PlacesTypeahead(props) {
       useCache
       onSearch={handleSearch}
       onChange={handleChange}
+      onKeyDown={props.onKeyDown}
       selected={selected}
       options={options}
       placeholder="Enter City Name..."

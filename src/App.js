@@ -119,11 +119,6 @@ function App() {
 
   const getWeather = () => setCity(searchCity);
 
-  const searchOnEnter = (event) => {
-    if (event.key === "Enter") getWeather();
-  };
-
-
   useEffect(() => {
     if (coordinates) {
       fetch(
@@ -171,16 +166,6 @@ function App() {
             src={weather[0]}
           />
           <h2>Enter a city below 👇</h2>
-          <input
-            type="text"
-            value={searchCity}
-            onChange={(event) => setSearchCity(event.target.value)}
-            onKeyPress={searchOnEnter}
-          />
-          <button className="search-btn" onClick={getWeather}>
-            <img className="search-logo" alt="Search" src={searchIcon} />
-          </button>
-
           <div id="city-typeahead-container">
             <PlacesTypeahead
               apiKey={process.env.REACT_APP_API_NINJAS_API_KEY}
@@ -190,7 +175,11 @@ function App() {
               onKeyDown={(event) =>
                 event.key === "Enter" && setCity(event.target.value)
               }
+              onSearch={setSearchCity}
             />
+            <button className="search-btn" onClick={getWeather}>
+              <img className="search-logo" alt="Search" src={searchIcon} />
+            </button>
             <button
               type="submit"
               className={showGraph ? "toggle-graph active" : "toggle-graph"}
