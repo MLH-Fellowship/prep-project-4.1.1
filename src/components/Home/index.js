@@ -152,7 +152,7 @@ const Home = () => {
       .then(
         (result) => {
           setCityData({
-            name: name,
+            name,
             longitude: result.features[0].center[0],
             latitude: result.features[0].center[1],
           });
@@ -192,11 +192,7 @@ const Home = () => {
           <div id="city-typeahead-container">
             <PlacesTypeahead
               apiKey={process.env.REACT_APP_API_NINJAS_API_KEY}
-              onChange={(selected) =>
-                selected &&
-                selected.length > 0 &&
-                setCityData({ name: selected })
-              }
+              onChange={(selected) => selected && selected.length > 0}
               onKeyDown={(event) =>
                 event.key === "Enter" && fetchLatLong(event.target.value)
               }

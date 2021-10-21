@@ -8,7 +8,7 @@ const LIMIT = 30;
 const SEARCH_URI = "https://api.api-ninjas.com/v1/city";
 
 export default function PlacesTypeahead(props) {
-  const { city, setCityData } = useContext(CityContext);
+  const { city } = useContext(CityContext);
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState([]);
   const [selected, setSelected] = useState([city.name]);
