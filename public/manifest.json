@@ -8,14 +8,22 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "logo/manifest-icon-48.maskable.png",
+      "sizes": "48x48",
       "type": "image/png",
-      "sizes": "192x192"
+      "purpose":"maskable any"
     },
     {
-      "src": "logo512.png",
+      "src": "logo/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
       "type": "image/png",
-      "sizes": "512x512"
+      "purpose": "maskable any"
+    },
+    {
+      "src": "logo/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
     }
   ],
   "start_url": ".",
