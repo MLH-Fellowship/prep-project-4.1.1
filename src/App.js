@@ -252,7 +252,7 @@ function App() {
             )}
           </div>
         </div>
-        {showGraph ? <Graph /> : null}
+        {showGraph && coordinates ? <Graph latitude={coordinates.lat} longitude={coordinates.lon}/> : null}
         {/* Tip Div */}
         {isLoaded && results && (
           <div className="tip-div">
