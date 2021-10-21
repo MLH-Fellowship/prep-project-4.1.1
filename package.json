@@ -1,5 +1,6 @@
 {
-  "name": "prep-template",
+  "name": "weather-app",
+  "contributors": ["Hemansh Khaneja", "Swatilekha Roy", "Lucas Vinzon", "Tanmay Vyas", "Dat Quach", "Gavish Poddar", "Will Russell", "Arsalan Khattak", "Shivam Tewari", "Athar Mohammad", "Devansh Singh", "Harshal Raikwar"],
   "version": "0.1.0",
   "private": true,
   "dependencies": {
