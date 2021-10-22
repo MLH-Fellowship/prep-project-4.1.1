@@ -329,6 +329,16 @@ function App() {
                   />
                 </h3>
               )}
+              {results.weather[0].main === "Thunderstorm" && (
+                <h3>
+                  Try not to leave the house, unless urgent!
+                  <img
+                    src="tip_img/thunderstorm.png"
+                    alt="Thunderstorm"
+                    className="tip-img"
+                  />
+                </h3>
+              )}
               {results.weather[0].main === "Snow" && (
                 <h3>
                   Bring your coat, it might get chilly!
@@ -341,6 +351,16 @@ function App() {
                   <img
                     src="tip_img/suncream.png"
                     alt="Sun Cream"
+                    className="tip-img"
+                  />
+                </h3>
+              )}
+              {results.weather[0].main === "Haze" && (
+                <h3>
+                  Don't forget to bring your anti-fog glasses with you!
+                  <img
+                    src="tip_img/fogglass.png"
+                    alt="Anti Fog Glasses"
                     className="tip-img"
                   />
                 </h3>
