@@ -4,6 +4,7 @@ import mapboxgl from "!mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import useFetch from "../../hooks/useFetch";
 import { CityContext } from "../../context/CityProvider";
+import "../../App.css";
 
 const accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 mapboxgl.accessToken = accessToken;
@@ -150,7 +151,7 @@ const Map = () => {
           borderRadius: "20px",
         }}
       ></div>
-      <div>
+      <div className="Glass mapbox-location">
         {location.loading
           ? "Loading..."
           : location.error

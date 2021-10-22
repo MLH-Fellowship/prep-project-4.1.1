@@ -169,3 +169,10 @@ input {
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
+
+.mapbox-location {
+  width: fit-content;
+  padding: 0 1rem;
+  margin: 1rem auto;
+  border-color: #fff;
+}
