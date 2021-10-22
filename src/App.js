@@ -14,21 +14,20 @@ import Snow from "./assets/snow.mp4";
 import Thunderstorm from "./assets/thunderstorm.mp4";
 require("dotenv").config();
 
-
 function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [city, setCity] = useState("New York City");
-  const [searchCity, setSearchCity] = useState("New York City");
+  const [city, setCity] = useState("");
+  const [searchCity, setSearchCity] = useState("");
   const [results, setResults] = useState(null);
   const [showGraph, setShowGraph] = useState(false);
-  const [searchHistory, setSearchHistory] = useState(["New York, US"]);
+  const [searchHistory, setSearchHistory] = useState([]);
   const [popUp, setPopUp] = useState(false);
 
   const [coordinates, setCoordinates] = useState(null);
   const [onecallResults, setOnecallResults] = useState(null);
   const [isOnecallLoaded, setIsOnecallLoaded] = useState(false);
-  
+
   // fetch localSearchHistory if it exists
   if (localStorage.getItem("localSearchHistory")) {
     var local_search_history = localStorage.getItem("localSearchHistory");
@@ -37,7 +36,6 @@ function App() {
       setSearchHistory(local_search_history);
     }
   }
-
 
   useEffect(() => {
     const url = "https://extreme-ip-lookup.com/json/";
@@ -49,7 +47,7 @@ function App() {
         console.log(json.city);
         setIsLoaded(true);
         setCity(json.city);
-        setCoordinates({"lat":json.lat, "lon":json.lon});
+        setCoordinates({ lat: json.lat, lon: json.lon });
       } catch (error) {
         setIsLoaded(true);
         setError(error);
@@ -123,7 +121,6 @@ function App() {
     if (event.key === "Enter") getWeather();
   };
 
-
   useEffect(() => {
     if (coordinates) {
       fetch(
@@ -131,12 +128,13 @@ function App() {
           coordinates.lat +
           "&lon=" +
           coordinates.lon +
-          "&exclude=minutely,daily&units=metric&appid=" + process.env.REACT_APP_APIKEY
+          "&exclude=minutely,daily&units=metric&appid=" +
+          process.env.REACT_APP_APIKEY
       )
         .then((res) => res.json())
         .then(
           (result) => {
-            setOnecallResults(result.hourly);            
+            setOnecallResults(result.hourly);
             setIsOnecallLoaded(true);
           },
           (error) => {
@@ -199,6 +197,31 @@ function App() {
               Visualize
             </button>
           </div>
+
+          <div className="recent-searches-section Glass">
+            <h2 className="recent-searches-heading">Recent Searches</h2>
+            <hr className="search-separator" />
+            <ul className="recent-searches">
+              {searchHistory.map((search, searchIndex) => {
+                if (searchIndex !== searchHistory.length - 1)
+                  return (
+                    <>
+                      <li key={searchIndex} className="search-item">
+                        {search}
+                      </li>
+                      <hr className="search-separator" />
+                    </>
+                  );
+                else
+                  return (
+                    <>
+                      <li className="search-item">{search}</li>
+                    </>
+                  );
+              })}
+            </ul>
+          </div>
+
           <div className="Result_card">
             <div className="Results Glass">
               {!isLoaded && <h2>Loading...</h2>}
@@ -220,9 +243,9 @@ function App() {
                   </i>
                 </>
               )}
-              </div>
-            
-            <h3 style={{paddingTop: "2rem"}}>Hourly forcast</h3>
+            </div>
+
+            <h3 style={{ paddingTop: "2rem" }}>Hourly forcast</h3>
 
             {!isOnecallLoaded && <h2>Loading...</h2>}
             {isOnecallLoaded && onecallResults && (
