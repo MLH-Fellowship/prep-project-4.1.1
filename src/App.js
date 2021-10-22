@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import PlacesTypeahead from "./Components/PlacesTypeahead";
+import PlacesTypeahead from "./components/PlacesTypeahead";
 import "./App.css";
 import searchIcon from "./assets/images/location-pinpoint.svg";
 import logo from "./mlh-prep.png";
-import PopUp from "./Components/Popup";
+import PopUp from "./components/Popup";
 import Graph from "./Components/Graph/Graph";
 import ColorSkycons, { ColorSkyconsType } from "react-color-skycons";
 import Rain from "./assets/rain.mp4";
