@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import PlacesTypeahead from "./components/PlacesTypeahead";
+import PlacesTypeahead from "./Components/PlacesTypeahead";
 import "./App.css";
 import searchIcon from "./assets/images/location-pinpoint.svg";
 import logo from "./mlh-prep.png";
-import PopUp from "./components/Popup";
+import PopUp from "./Components/Popup";
 import Graph from "./Components/Graph/Graph";
 import ColorSkycons, { ColorSkyconsType } from "react-color-skycons";
 import Rain from "./assets/rain.mp4";
@@ -13,7 +13,6 @@ import Clouds from "./assets/clouds.mp4";
 import Snow from "./assets/snow.mp4";
 import Thunderstorm from "./assets/thunderstorm.mp4";
 require("dotenv").config();
-
 
 function App() {
   const [error, setError] = useState(null);
@@ -28,7 +27,7 @@ function App() {
   const [coordinates, setCoordinates] = useState(null);
   const [onecallResults, setOnecallResults] = useState(null);
   const [isOnecallLoaded, setIsOnecallLoaded] = useState(false);
-  
+
   // fetch localSearchHistory if it exists
   if (localStorage.getItem("localSearchHistory")) {
     var local_search_history = localStorage.getItem("localSearchHistory");
@@ -37,7 +36,6 @@ function App() {
       setSearchHistory(local_search_history);
     }
   }
-
 
   useEffect(() => {
     const url = "https://extreme-ip-lookup.com/json/";
@@ -49,7 +47,7 @@ function App() {
         console.log(json.city);
         setIsLoaded(true);
         setCity(json.city);
-        setCoordinates({"lat":json.lat, "lon":json.lon});
+        setCoordinates({ lat: json.lat, lon: json.lon });
       } catch (error) {
         setIsLoaded(true);
         setError(error);
@@ -123,7 +121,6 @@ function App() {
     if (event.key === "Enter") getWeather();
   };
 
-
   useEffect(() => {
     if (coordinates) {
       fetch(
@@ -131,13 +128,16 @@ function App() {
           coordinates.lat +
           "&lon=" +
           coordinates.lon +
-          "&exclude=minutely,daily&units=metric&appid=" + process.env.REACT_APP_APIKEY
+          "&exclude=minutely,daily&units=metric&appid=" +
+          process.env.REACT_APP_APIKEY
       )
         .then((res) => res.json())
         .then(
           (result) => {
-            setOnecallResults(result.hourly);            
+            setOnecallResults(result.hourly);
             setIsOnecallLoaded(true);
+
+            console.log(result);
           },
           (error) => {
             setError(error);
@@ -146,7 +146,6 @@ function App() {
         );
     }
   }, [coordinates]);
-
   if (error) {
     return <div>Error: {error.message}</div>;
   } else {
@@ -170,7 +169,8 @@ function App() {
             }}
             src={weather[0]}
           />
-          <h2>Enter a city below 👇</h2>
+          <h2 className="head-h">Enter a city below 👇</h2>
+
           <input
             type="text"
             value={searchCity}
@@ -220,9 +220,73 @@ function App() {
                   </i>
                 </>
               )}
+            </div>
+
+            {/* Audio Div */}
+            {isLoaded && results && (
+              <div className="audio-div">
+                <>
+                  <h2>Tip!</h2>
+                  {results.weather[0].main === "Clear" && (
+                    <>
+                      <audio
+                        src="audio/clear.mp3"
+                        loop
+                        autoPlay
+                        controls
+                      ></audio>
+                    </>
+                  )}
+                  {results.weather[0].main === "Clouds" && (
+                    <>
+                      <audio
+                        src="audio/clouds.mp3"
+                        loop
+                        autoPlay
+                        controls
+                      ></audio>
+                    </>
+                  )}
+                  {results.weather[0].main === "Rain" && (
+                    <>
+                      <audio
+                        src="audio/rain.mp3"
+                        loop
+                        autoPlay
+                        controls
+                      ></audio>
+                    </>
+                  )}
+                  {results.weather[0].main === "Haze" && (
+                    <>
+                      <audio src="audio/fog.mp3" loop autoPlay controls></audio>
+                    </>
+                  )}
+                  {results.weather[0].main === "Snow" && (
+                    <>
+                      <audio
+                        src="audio/snow.mp3"
+                        loop
+                        autoPlay
+                        controls
+                      ></audio>
+                    </>
+                  )}
+                  {results.weather[0].main === "Thunderstorm" && (
+                    <>
+                      <audio
+                        src="audio/thunderstorm.mp3"
+                        loop
+                        autoPlay
+                        controls
+                      ></audio>
+                    </>
+                  )}
+                </>
               </div>
-            
-            <h3 style={{paddingTop: "2rem"}}>Hourly forcast</h3>
+            )}
+
+            <h3 style={{ paddingTop: "2rem" }}>Hourly forcast</h3>
 
             {!isOnecallLoaded && <h2>Loading...</h2>}
             {isOnecallLoaded && onecallResults && (
@@ -261,25 +325,37 @@ function App() {
                 results.weather[0].main === "Clouds") && (
                 <h3>
                   Bring an Umbrella, it might get wet!
-                  <img src="umbrella.png" alt="Umbrella" className="tip-img" />
+                  <img
+                    src="tip_img/umbrella.png"
+                    alt="Umbrella"
+                    className="tip-img"
+                  />
                 </h3>
               )}
               {results.weather[0].main === "Snow" && (
                 <h3>
                   Bring your coat, it might get chilly!
-                  <img src="coat.png" alt="Coat" className="tip-img" />
+                  <img src="tip_img/coat.png" alt="Coat" className="tip-img" />
                 </h3>
               )}
               {results.weather[0].main === "Clear" && (
                 <h3>
                   Bring your suncream, so that tan is good!{" "}
-                  <img src="suncream.png" alt="Sun Cream" className="tip-img" />
+                  <img
+                    src="tip_img/suncream.png"
+                    alt="Sun Cream"
+                    className="tip-img"
+                  />
                 </h3>
               )}
               {results.wind.speed >= 2.0 && (
                 <h3>
                   Bring your wind-cheater, lest you want wind bites!
-                  <img src="jacket.png" alt="Jacket" className="tip-img" />
+                  <img
+                    src="tip_img/jacket.png"
+                    alt="Jacket"
+                    className="tip-img"
+                  />
                 </h3>
               )}
             </>

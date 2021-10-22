@@ -1,3 +1,8 @@
+/* Main body styles */
+.head-h {
+  margin-top: 6%;
+}
+
 body {
   background-color: #133667;
   color: white;
@@ -98,10 +103,6 @@ input {
   background-color: burlywood;
   color: black;
 }
-/* .fa-check {
-  color: #F1C31F;
-  font-size: 2.1rem;
-} */
 
 .tip-div h3 {
   font-weight: 400;
@@ -169,4 +170,14 @@ input {
   -webkit-backdrop-filter: blur( 6px );
   border-radius: 6px;
   border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+/* Audio element */
+.audio-div {
+  mix-blend-mode: multiply;
+  opacity: 0.8 !important;
+}
+
+audio { 
+  opacity: 0.8;
 }
