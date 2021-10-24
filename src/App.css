@@ -57,9 +57,9 @@ input {
 .tip-div {
   max-width: 1200px;
   background: rgba(196, 196, 196, 0.18);
-  border: 1px solid #FFFFFF;
+  border: 1px solid #ffffff;
   box-sizing: border-box;
-  margin: 4% 15%;
+  margin: 4% auto;
   padding: auto 2%;
   align-items: center;
   justify-content: center;
@@ -67,20 +67,20 @@ input {
 }
 
 .tip-div h2 {
-  color: #F1C31F;
+  color: #f1c31f;
   font-size: 2.1rem;
   font-weight: 500;
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
 }
 
-.toggle-graph{
+.toggle-graph {
   height: auto;
   padding: 10px;
   font-size: 15px;
   margin-left: 5px;
   background-color: black;
-  color:#fff;
+  color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -88,13 +88,13 @@ input {
   box-sizing: border-box;
 }
 
-.toggle-graph:hover{
+.toggle-graph:hover {
   background-color: burlywood;
   color: black;
   transform: scale(0.8);
 }
 
-.active{
+.active {
   background-color: burlywood;
   color: black;
 }
@@ -132,8 +132,7 @@ input {
   }
 }
 
-
-.row{
+.row {
   align-items: stretch;
   display: flex;
   flex-direction: row;
@@ -144,7 +143,7 @@ input {
 .card {
   /*float: left;*/
   max-width: 15%;
-  padding: .75rem;
+  padding: 0.75rem;
   margin: 1.5rem;
   border: 0;
   flex-basis: 33.333%;
@@ -153,20 +152,27 @@ input {
 }
 
 .card > img {
-  margin-bottom: .75rem;
+  margin-bottom: 0.75rem;
 }
 
 .card-text {
   font-size: 85%;
 }
 
-.Glass{
+.Glass {
   color: white;
   text-shadow: 2px 2px 4px #000000;
   background: rgba(122, 122, 122, 0.25);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  backdrop-filter: blur( 8px );
-  -webkit-backdrop-filter: blur( 6px );
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(6px);
   border-radius: 6px;
-  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.mapbox-location {
+  width: fit-content;
+  padding: 0 1rem;
+  margin: 1rem auto;
+  border-color: #fff;
 }
