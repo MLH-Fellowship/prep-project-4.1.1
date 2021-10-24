@@ -43,7 +43,6 @@ const Map = () => {
 
   const clickHandler = (e) => {
     let { lng, lat } = e.lngLat;
-    console.log(lng, lat);
     lng = lng.toFixed(4);
     lat = lat.toFixed(4);
 
